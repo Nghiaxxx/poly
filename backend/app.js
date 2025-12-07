@@ -116,7 +116,10 @@ app.use(cors({
     'https://polysmart.me',
     'http://localhost:3000',
     'http://localhost:3001',
-    'https://api.polysmart.me'
+    'https://api.polysmart.me',
+    // Vercel frontend domains - sẽ cập nhật sau khi deploy
+    /^https:\/\/poly-.*\.vercel\.app$/,  // Vercel preview URLs
+    'https://poly.vercel.app'  // Thay bằng URL Vercel thực tế của bạn
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
