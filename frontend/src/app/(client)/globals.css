@@ -1,0 +1,553 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SweetAlert2 Custom Styles */
+.swal2-popup {
+  border-radius: 16px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.swal2-title {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #1f2937 !important;
+}
+
+.swal2-html-container {
+  font-size: 1rem !important;
+  color: #6b7280 !important;
+  line-height: 1.5 !important;
+}
+
+.swal2-confirm {
+  background-color: #3b82f6 !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  font-size: 0.875rem !important;
+}
+
+.swal2-confirm:hover {
+  background-color: #2563eb !important;
+}
+
+.swal2-cancel {
+  background-color: #6b7280 !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  font-size: 0.875rem !important;
+}
+
+.swal2-cancel:hover {
+  background-color: #4b5563 !important;
+}
+
+/* Toast Style cho SweetAlert2 */
+.swal-toast-popup {
+  border-radius: 12px !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.swal-toast-popup .swal2-title {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+}
+
+.swal-toast-popup .swal2-html-container {
+  font-size: 0.875rem !important;
+  margin: 0 !important;
+}
+
+/* Success Toast */
+.swal2-success .swal2-icon {
+  border-color: #10b981 !important;
+  color: #10b981 !important;
+}
+
+/* Error Toast */
+.swal2-error .swal2-icon {
+  border-color: #ef4444 !important;
+  color: #ef4444 !important;
+}
+
+/* Warning Toast */
+.swal2-warning .swal2-icon {
+  border-color: #f59e0b !important;
+  color: #f59e0b !important;
+}
+
+/* Timer Progress Bar */
+.swal2-timer-progress-bar {
+  background: linear-gradient(90deg, #3b82f6, #10b981) !important;
+}
+
+/* Animation improvements */
+.swal2-show {
+  animation: swal2-show 0.3s ease-out !important;
+}
+
+.swal2-hide {
+  animation: swal2-hide 0.15s ease-in !important;
+}
+
+:root {
+  --primary: #0F4C81;
+  --secondary: #F2A900;
+  --dark: #1A1A1A;
+  --light: #FFFFFF;
+  --gray-light: #F8F9FA;
+  --gray-medium: #E9ECEF;
+  --success: #28A745;
+  --error: #DC3545;
+}
+
+body {
+  background-color: var(--gray-light);
+  color: var(--dark);
+  font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+code, pre {
+  font-family: 'Geist Mono', monospace;
+}
+
+@keyframes flashscale {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+@layer components {
+  /* Nút nhấn với hiệu ứng hover nâng cao */
+  .btn-primary {
+    @apply bg-blue-600 text-white font-medium px-6 py-2.5 rounded transition-all duration-300 relative overflow-hidden;
+    box-shadow: 0 4px 6px rgba(29, 78, 216, 0.2);
+  }
+  
+  .btn-primary:hover {
+    @apply bg-blue-700 -translate-y-0.5;
+    box-shadow: 0 6px 12px rgba(29, 78, 216, 0.25);
+  }
+
+  .btn-primary:active {
+    @apply translate-y-0.5;
+  }
+  
+  .btn-primary::before {
+    content: '';
+    @apply absolute inset-0 bg-white opacity-0 transition-opacity duration-300;
+  }
+  
+  .btn-primary:hover::before {
+    @apply opacity-10;
+  }
+  
+  /* Card với hiệu ứng hover nâng cao */
+  .card {
+    @apply bg-white rounded-lg overflow-hidden transition-all duration-300;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .card:hover {
+    @apply -translate-y-1;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .card:hover .product-image {
+    @apply scale-105;
+  }
+  
+  /* Product grid */
+  .product-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6;
+  }
+  
+  /* Container ảnh với hiệu ứng hover */
+  .product-image-container {
+    @apply relative w-full pt-[100%] overflow-hidden;
+    background-color: #F6F6F6;
+  }
+  
+  /* Ảnh với hiệu ứng zoom nhẹ khi hover */
+  .product-image {
+    @apply absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-500;
+  }
+  
+  .product-info {
+    @apply p-4 flex flex-col flex-grow;
+  }
+  
+  /* Tiêu đề với hiệu ứng đổi màu khi hover card */
+  .product-title {
+    @apply text-sm font-medium mb-2 h-10 transition-colors duration-300;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .card:hover .product-title {
+    @apply text-blue-600;
+  }
+  
+  /* Giá hiện tại với hiệu ứng */
+  .price-current {
+    @apply text-lg font-bold text-red-600 transition-all duration-300;
+  }
+  
+  .card:hover .price-current {
+    @apply scale-110 origin-left;
+  }
+  
+  .price-original {
+    @apply text-xs text-gray-500 line-through ml-2;
+  }
+  
+  /* Badge giảm giá với hiệu ứng pulse khi hover */
+  .discount-badge {
+    @apply mt-2 bg-red-100 text-red-600 text-xs font-medium px-2 py-1 rounded-full inline-flex items-center transition-all duration-300;
+  }
+  
+  .card:hover .discount-badge {
+    @apply bg-red-600 text-white;
+  }
+  
+  .section {
+    @apply py-10;
+  }
+  
+  /* Header section với hiệu ứng */
+  .section-header {
+    @apply flex items-center justify-between mb-6 pb-2 border-b;
+  }
+  
+  .section-title {
+    @apply text-2xl font-bold relative pl-3;
+  }
+  
+  .section-title::before {
+    content: '';
+    @apply absolute left-0 top-1/2 transform -translate-y-1/2 h-6 w-1 bg-blue-600 rounded transition-all duration-300;
+  }
+  
+  .section:hover .section-title::before {
+    @apply h-8 bg-blue-700;
+  }
+  
+  /* Banner với hiệu ứng scale */
+  .main-banner {
+    @apply relative overflow-hidden rounded-lg shadow-lg h-96 mb-10;
+  }
+  
+  .banner-slide {
+    @apply absolute inset-0 transition-opacity duration-1000;
+  }
+  
+  .banner-content {
+    @apply absolute inset-0 flex flex-col items-center justify-center text-center z-10 text-white px-6;
+  }
+  
+  .banner-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60 transition-opacity duration-500;
+  }
+  
+  .main-banner:hover .banner-overlay {
+    @apply opacity-70;
+  }
+  
+  .banner-title {
+    @apply text-4xl md:text-5xl font-bold mb-2 transition-transform duration-500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .main-banner:hover .banner-title {
+    @apply scale-105;
+  }
+  
+  .banner-subtitle {
+    @apply text-xl md:text-2xl mb-6 max-w-lg transition-all duration-500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .main-banner:hover .banner-subtitle {
+    @apply tracking-wide;
+  }
+  
+  /* Nút banner với hiệu ứng */
+  .banner-button {
+    @apply bg-white text-gray-900 font-medium px-6 py-2.5 rounded-lg transition-all duration-300 shadow-md relative overflow-hidden;
+  }
+  
+  .banner-button:hover {
+    @apply bg-gray-100 -translate-y-0.5 shadow-lg;
+  }
+
+  .banner-button::after {
+    content: '';
+    @apply absolute bg-blue-600 w-0 h-full top-0 left-0 opacity-20 transition-all duration-300;
+  }
+
+  .banner-button:hover::after {
+    @apply w-full;
+  }
+  
+  /* Flash Sale Container cải tiến */
+  .flash-sale-container {
+    @apply rounded-xl p-6 shadow-lg overflow-hidden relative;
+    background: linear-gradient(135deg, #1a56db, #1e429f);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .flash-sale-container:hover {
+    box-shadow: 0 15px 30px rgba(26, 86, 219, 0.3);
+    transform: translateY(-5px);
+  }
+  
+  .flash-sale-container::before {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    top: -75px;
+    right: -75px;
+    transition: transform 0.5s ease;
+  }
+  
+  .flash-sale-container:hover::before {
+    transform: scale(1.2);
+  }
+  
+  .flash-sale-container::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    bottom: -50px;
+    left: -50px;
+    transition: transform 0.5s ease;
+  }
+  
+  .flash-sale-container:hover::after {
+    transform: scale(1.2);
+  }
+  
+  /* Timer Boxes cải tiến */
+  .flash-timer {
+    @apply flex items-center;
+  }
+  
+  .timer-unit {
+    @apply flex flex-col items-center bg-white rounded overflow-hidden w-10 shadow transition-transform duration-300;
+  }
+  
+  .flash-sale-container:hover .timer-unit {
+    @apply -translate-y-0.5 shadow-md;
+  }
+  
+  .timer-label {
+    @apply bg-blue-800 text-white text-xs py-0.5 w-full text-center uppercase;
+  }
+  
+  .timer-value {
+    @apply font-bold text-lg py-1 text-blue-800;
+  }
+  
+  .timer-box {
+    @apply bg-white text-blue-600 w-7 h-9 flex items-center justify-center rounded font-bold text-sm shadow transition-transform duration-300;
+  }
+  
+  .flash-sale-container:hover .timer-box {
+    @apply -translate-y-0.5 shadow-md;
+  }
+  
+  .timer-separator {
+    @apply text-white font-bold text-lg mx-1;
+  }
+  
+  /* Sale Card cải tiến */
+  .sale-card {
+    @apply bg-white rounded-xl overflow-hidden shadow transition-all duration-300 flex flex-col h-full;
+  }
+  
+  .sale-card:hover {
+    @apply -translate-y-1 shadow-lg;
+  }
+  
+  .sale-card:hover .product-image {
+    @apply scale-105;
+  }
+  
+  .discount-tag {
+    @apply absolute top-3 left-3 bg-red-500 text-white font-semibold text-xs px-2 py-1 rounded-full z-10 transition-all duration-300;
+  }
+  
+  .sale-card:hover .discount-tag {
+    @apply bg-red-600 scale-110;
+  }
+  
+  .progress-bar {
+    @apply h-2 w-full bg-gray-200 rounded-full overflow-hidden transition-all duration-300;
+  }
+  
+  .sale-card:hover .progress-bar {
+    @apply h-3;
+  }
+  
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-300;
+    background: linear-gradient(90deg, #ef4444, #f97316);
+  }
+  
+  .sale-card:hover .progress-fill {
+    filter: brightness(1.1);
+  }
+  
+  .remaining-text {
+    @apply text-red-600 text-xs font-medium ml-2 transition-all duration-300;
+  }
+  
+  .sale-card:hover .remaining-text {
+    @apply text-red-700 font-bold;
+  }
+  
+  /* Newsletter section */
+  .newsletter-section {
+    @apply bg-gray-900 text-white py-16 rounded-lg shadow-md transition-all duration-500;
+  }
+  
+  .newsletter-section:hover {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    @apply shadow-lg;
+  }
+  
+  .newsletter-form {
+    @apply flex w-full max-w-md mx-auto shadow-lg rounded-lg overflow-hidden transition-all duration-300;
+  }
+  
+  .newsletter-section:hover .newsletter-form {
+    @apply shadow-xl -translate-y-1;
+  }
+  
+  .newsletter-input {
+    @apply w-full px-5 py-3 text-gray-700 focus:outline-none transition-all duration-300 border-l-4 border-transparent;
+  }
+  
+  .newsletter-input:focus {
+    @apply border-l-4 border-blue-600;
+  }
+  
+  .newsletter-button {
+    @apply bg-blue-600 text-white px-6 py-3 font-medium transition-all duration-300 whitespace-nowrap relative overflow-hidden;
+  }
+  
+  .newsletter-button:hover {
+    @apply bg-blue-700;
+  }
+  
+  .newsletter-button::after {
+    content: '';
+    @apply absolute w-full h-0 left-0 bottom-0 bg-white opacity-20 transition-all duration-300;
+  }
+  
+  .newsletter-button:hover::after {
+    @apply h-full;
+  }
+  
+  /* Slider dots */
+  .slider-dots {
+    @apply absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20;
+  }
+  
+  .slider-dot {
+    @apply w-2.5 h-2.5 rounded-full transition-all duration-300 bg-white bg-opacity-50 hover:bg-opacity-80;
+  }
+  
+  .slider-dot:hover {
+    @apply scale-110;
+  }
+  
+  .slider-dot-active {
+    @apply bg-white w-6 bg-opacity-100;
+  }
+  
+  .slider-dot-active:hover {
+    @apply scale-105;
+  }
+}
+
+.header {
+  @apply fixed top-0 w-full z-50 transition-all duration-300;
+}
+
+.header-scrolled {
+  @apply bg-white shadow-md;
+}
+
+.header-default {
+  @apply bg-gray-800;
+}
+
+.nav-link {
+  @apply text-gray-300 hover:text-white px-2 py-1 rounded-md text-sm font-medium;
+}
+
+.dropdown-menu {
+  @apply absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block;
+}
+
+.dropdown-item {
+  @apply block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100;
+}
+
+/* Ẩn thanh scrollbar nhưng vẫn cho phép scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ẩn thanh cuộn dọc cho khung chat */
+/* .hide-scrollbar::-webkit-scrollbar {
+  display: none;
+} */
+/* .hide-scrollbar {
+  -ms-overflow-style: none; 
+  scrollbar-width: none;    
+}  */
+
+/* Nếu dùng file CSS thường */
+.markdown-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 14px;
+}
+.markdown-table th, .markdown-table td {
+  border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+  padding: 8px 12px;
+  text-align: left;
+}
+.markdown-table th {
+  background: #f3f4f6; /* Tailwind gray-100 */
+  font-weight: 600;
+}
+.markdown-table tr:nth-child(even) {
+  background: #f9fafb; /* Tailwind gray-50 */
+}
+
+html, body {
+  overflow-x: hidden !important;
+}
+

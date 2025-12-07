@@ -1,0 +1,94 @@
+/**
+ * Font Optimization CSS
+ * Tối ưu hóa việc load font để tránh chặn render và cải thiện LCP
+ */
+
+/* Font Display Swap cho tất cả font */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro';
+  font-display: swap;
+}
+
+/* Preload critical fonts */
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'), local('Inter-Regular');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'), local('Inter-Medium');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'), local('Inter-SemiBold');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'), local('Inter-Bold');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback fonts để tránh FOUT (Flash of Unstyled Text) */
+.font-fallback {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Tối ưu hóa cho Satoshi font */
+.font-satoshi {
+  font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Tối ưu hóa cho SF Pro font */
+.font-sf-pro {
+  font-family: 'SF Pro', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* CSS để tránh layout shift khi font load */
+.font-loading {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.font-loaded {
+  opacity: 1;
+}
+
+/* Tối ưu hóa cho mobile */
+@media (max-width: 768px) {
+  /* Giảm font size trên mobile để tăng tốc độ render */
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+/* Tối ưu hóa cho print */
+@media print {
+  * {
+    font-display: auto !important;
+  }
+} 

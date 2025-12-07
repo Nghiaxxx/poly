@@ -1,0 +1,162 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('lab3:server');
+var https = require('https');
+var http = require('http');
+var fs = require('fs');
+var path = require('path');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+var httpsPort = normalizePort(process.env.HTTPS_PORT || '3450');
+app.set('port', port);
+app.set('httpsPort', httpsPort);
+
+/**
+ * Check if SSL certificates exist
+ */
+const sslKeyPath = path.join(__dirname, '../ssl/key.pem');           // key.pem thay vì private-key.pem
+const sslCertPath = path.join(__dirname, '../ssl/certificate.pem');  // certificate.pem (giữ nguyên)
+
+const sslFilesExist = fs.existsSync(sslKeyPath) && fs.existsSync(sslCertPath);
+
+// if (!sslFilesExist) {
+  console.log('⚠️  SSL certificates not found. Starting HTTP server only.');
+  console.log('To enable HTTPS, run: node generate-ssl.js');
+  console.log('');
+  
+  // Create HTTP server as fallback
+  
+  var httpServer = http.createServer(app);
+  httpServer.listen(port);    
+  httpServer.on('error', onHttpError);
+  httpServer.on('listening', onHttpListening);
+// } else {
+//   console.log('✅ SSL certificates found. Starting HTTPS server.');
+  
+//   /**
+//    * SSL Configuration
+//    */
+//   const sslOptions = {
+//     key: fs.readFileSync(sslKeyPath),
+//     cert: fs.readFileSync(sslCertPath)
+//   };
+
+//   /**
+//    * Create HTTPS server.
+//    */
+//   var httpsServer = https.createServer(sslOptions, app);
+//   httpsServer.listen(httpsPort, '0.0.0.0'); // Bind tất cả interfaces
+//   httpsServer.on('error', onHttpsError);
+//   httpsServer.on('listening', onHttpsListening);
+// }
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onHttpError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onHttpListening() {
+  var addr = httpServer.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  console.log('HTTP Server running on http://localhost:' + port);
+  debug('HTTP Listening on ' + bind);
+}
+
+/**
+ * Event listener for HTTPS server "error" event.
+ */
+
+function onHttpsError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof httpsPort === 'string'
+    ? 'Pipe ' + httpsPort
+    : 'Port ' + httpsPort;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTPS server "listening" event.
+ */
+
+function onHttpsListening() {
+  var addr = httpsServer.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  console.log('HTTPS Server running on https://localhost:' + httpsPort);
+  debug('HTTPS Listening on ' + bind);
+}

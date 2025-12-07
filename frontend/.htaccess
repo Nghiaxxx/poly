@@ -1,0 +1,6 @@
+# .htaccess file for Next.js application
+# This file is required by cPanel to set environment variables
+
+# Allow Node.js to handle requests
+# cPanel will automatically add environment variables here
+
