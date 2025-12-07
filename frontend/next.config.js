@@ -106,6 +106,12 @@ const nextConfig = {
   // Tối ưu hóa để giảm memory usage
   swcMinify: true,
   compress: true,
+  // Fix cho lỗi build trên Vercel
+  output: 'standalone',
+  // Disable static optimization cho một số routes nếu cần
+  generateBuildId: async () => {
+    return 'build-' + Date.now()
+  },
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
     NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000',
