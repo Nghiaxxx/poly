@@ -7,6 +7,27 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}", // Thêm pattern tổng quát để đảm bảo không bỏ sót file nào
+  ],
+  // Safelist để giữ lại các class có thể được tạo động (chỉ giữ các class cụ thể, không dùng pattern quá rộng)
+  safelist: [
+    // Các class cụ thể quan trọng có thể bị purge
+    'pt-16',
+    'w-screen',
+    'overflow-hidden',
+    'fixed',
+    'top-0',
+    'z-50',
+    'transition-all',
+    'duration-300',
+    // Các class responsive phổ biến
+    'sm:block',
+    'md:flex',
+    'lg:hidden',
+    // Các class color phổ biến được dùng động
+    {
+      pattern: /^(bg|text)-(red|blue|green|yellow|gray|primary|secondary)-(50|100|200|300|400|500|600|700|800|900)$/,
+    },
   ],
   darkMode: "class",
   theme: {

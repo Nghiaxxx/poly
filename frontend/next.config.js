@@ -106,6 +106,8 @@ const nextConfig = {
   // Tối ưu hóa để giảm memory usage
   swcMinify: true,
   compress: true,
+  // Đảm bảo CSS được xử lý đúng trong production
+  productionBrowserSourceMaps: false, // Tắt source maps để tránh conflict
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
     NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000',

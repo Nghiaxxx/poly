@@ -9,15 +9,15 @@
     "lint": "next lint",
     "test:fonts": "node scripts/test-font-performance.js",
     "test:performance": "npm run test:fonts",
-    "clean:cache": "Remove-Item -Recurse -Force .next\\cache",
-    "clean:all": "Remove-Item -Recurse -Force .next",
-    "clean:node": "Remove-Item -Recurse -Force node_modules",
+    "clean:cache": "node -e \"require('fs').rmSync('.next/cache', {recursive: true, force: true})\"",
+    "clean:all": "node -e \"require('fs').rmSync('.next', {recursive: true, force: true})\"",
+    "clean:node": "node -e \"require('fs').rmSync('node_modules', {recursive: true, force: true})\"",
     "clean:full": "npm run clean:all && npm run clean:node && npm cache clean --force",
     "build:fresh": "npm run clean:all && npm run build",
     "dev:fresh": "npm run clean:cache && npm run dev",
     "install:fresh": "npm run clean:full && npm install",
-    "size:check": "Get-ChildItem .next -Recurse | Measure-Object -Property Length -Sum | ForEach-Object { Write-Host \"Total size: $([math]::Round($_.Sum/1MB,2)) MB\" }",
-    "size:analyze": "Get-ChildItem .next -Directory | ForEach-Object { $size = (Get-ChildItem $_.FullName -Recurse | Measure-Object -Property Length -Sum).Sum; Write-Host \"$($_.Name): $([math]::Round($size/1MB,2)) MB\" } | Sort-Object { [double]($_ -split ': ')[1] } -Descending"
+    "size:check": "node -e \"const fs=require('fs');const path=require('path');function getSize(p){let s=0;try{const st=fs.statSync(p);if(st.isFile())return st.size;if(st.isDirectory()){fs.readdirSync(p).forEach(f=>{s+=getSize(path.join(p,f))});}}catch{}return s;}const size=getSize('.next');console.log('Total size:',(size/1024/1024).toFixed(2),'MB');\"",
+    "size:analyze": "node -e \"const fs=require('fs');const path=require('path');function getSize(p){let s=0;try{const st=fs.statSync(p);if(st.isFile())return st.size;if(st.isDirectory()){fs.readdirSync(p).forEach(f=>{s+=getSize(path.join(p,f))});}}catch{}return s;}const dirs=fs.readdirSync('.next').filter(f=>fs.statSync(path.join('.next',f)).isDirectory()).map(d=>({name:d,size:getSize(path.join('.next',d))})).sort((a,b)=>b.size-a.size);dirs.forEach(d=>console.log(d.name+':',(d.size/1024/1024).toFixed(2),'MB'));\""
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",
