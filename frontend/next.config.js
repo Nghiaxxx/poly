@@ -101,7 +101,7 @@ const nextConfig = {
   experimental: {
     // allowedDevOrigins: ['polysmart.nghiaht.io.vn', 'localhost:3001'] // Removed for Next.js 15 compatibility
     // Tắt một số tính năng tốn memory
-    webVitalsAttribution: false,
+    // webVitalsAttribution đã bị deprecated trong Next.js 14
   },
   // Tối ưu hóa để giảm memory usage
   swcMinify: true,
