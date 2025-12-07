@@ -22,7 +22,7 @@ const SectionBanner: React.FC<SectionBannerProps> = ({
 }) => {
   if (!banners || banners.length === 0) return null;
   return (
-    <div className="w-screen overflow-hidden pt-16">
+    <div className="w-screen overflow-hidden">
       <div
         className="relative w-full group overflow-hidden aspect-[1920/720]"
         style={{ minHeight: 130, maxHeight: 425 }}
