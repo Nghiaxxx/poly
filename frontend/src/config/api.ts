@@ -1,5 +1,7 @@
 // Cấu hình API
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+// Mặc định sử dụng HTTPS với domain production
+// Có thể override bằng NEXT_PUBLIC_API_URL environment variable
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://poly.nghiaht.io.vn/api';
 
 // Hàm xử lý lỗi fetch
 const handleFetchError = (error: any) => {
@@ -8,7 +10,9 @@ const handleFetchError = (error: any) => {
 
 // Hàm fetch với xử lý lỗi
 export const fetchApi = async (endpoint: string, options: RequestInit = {}) => {
-  const url = `${API_BASE_URL}${endpoint}`;
+  // Đảm bảo endpoint bắt đầu bằng /
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const url = `${API_BASE_URL}${cleanEndpoint}`;
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
@@ -80,11 +84,13 @@ export const API_ENDPOINTS = {
   ADDRESSES: '/addresses',
 };
 
+// Cấu hình URLs - mặc định sử dụng HTTPS với domain production
+// Có thể override bằng environment variables
 const config = {
-  API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
-  BASE_URL: process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000',
-  IMAGE_URL: process.env.NEXT_PUBLIC_IMAGE_URL,
-  STORAGE_URL: process.env.NEXT_PUBLIC_STORAGE_URL,
+  API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://poly.nghiaht.io.vn/api',
+  BASE_URL: process.env.NEXT_PUBLIC_BACKEND_URL || 'https://poly.nghiaht.io.vn',
+  IMAGE_URL: process.env.NEXT_PUBLIC_IMAGE_URL || 'https://poly.nghiaht.io.vn',
+  STORAGE_URL: process.env.NEXT_PUBLIC_STORAGE_URL || 'https://poly.nghiaht.io.vn',
 };
 
 export const getApiUrl = (endpoint: string): string => {
@@ -97,7 +103,8 @@ export const getBaseUrl = (): string => {
 };
 
 export const getImageUrl = (path: string) => {
-  const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_URL || 'http://localhost:3000';
+  // Sử dụng config.IMAGE_URL đã được set với HTTPS cho production
+  const IMAGE_BASE_URL = config.IMAGE_URL;
   if (!path) return '/images/no-image.png';
   if (path.startsWith('http://') || path.startsWith('https://')) return path;
   

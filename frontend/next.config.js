@@ -32,11 +32,6 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'polysmart.nghiaht.io.vn',
-        pathname: '/images/**',
-      },
-      {
-        protocol: 'https',
         hostname: 'poly.nghiaht.io.vn',
         pathname: '/images/**',
       }
@@ -50,7 +45,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000'}/api/:path*`
+        destination: `${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://poly.nghiaht.io.vn'}/api/:path*`
       }
     ];
   },
@@ -99,7 +94,7 @@ const nextConfig = {
   },
   // Cấu hình cho development
   experimental: {
-    // allowedDevOrigins: ['polysmart.nghiaht.io.vn', 'localhost:3001'] // Removed for Next.js 15 compatibility
+    // allowedDevOrigins: ['poly.nghiaht.io.vn', 'localhost:3001'] // Removed for Next.js 15 compatibility
     // Tắt một số tính năng tốn memory
     // webVitalsAttribution đã bị deprecated trong Next.js 14
   },
@@ -109,10 +104,10 @@ const nextConfig = {
   // Đảm bảo CSS được xử lý đúng trong production
   productionBrowserSourceMaps: false, // Tắt source maps để tránh conflict
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
-    NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000',
-    NEXT_PUBLIC_IMAGE_URL: process.env.NEXT_PUBLIC_IMAGE_URL || 'http://localhost:3000',
-    NEXT_PUBLIC_STORAGE_URL: process.env.NEXT_PUBLIC_STORAGE_URL || 'http://localhost:3000'
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://poly.nghiaht.io.vn/api',
+    NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL || 'https://poly.nghiaht.io.vn',
+    NEXT_PUBLIC_IMAGE_URL: process.env.NEXT_PUBLIC_IMAGE_URL || 'https://poly.nghiaht.io.vn',
+    NEXT_PUBLIC_STORAGE_URL: process.env.NEXT_PUBLIC_STORAGE_URL || 'https://poly.nghiaht.io.vn'
   }
 };
 
